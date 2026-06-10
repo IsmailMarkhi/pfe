@@ -20,10 +20,11 @@ class OrderController extends Controller
             'orders' => $orders
         ]);
     }
-    
+
     public function index()
     {
-        $orders = Order::where('user_id', auth()->id())
+        $orders = Order::with('user')
+            ->where('user_id', auth()->id())
             ->latest()
             ->get();
 
@@ -79,19 +80,28 @@ class OrderController extends Controller
     }
 
     public function update(Request $request, Order $order)
-    {
-        abort_if($order->user_id !== auth()->id(), 403);
+{
+    $request->validate([
+        'status' => 'required|in:pending,shipped,delivered',
+    ]);
 
-        $request->validate([
-            'status' => 'required'
-        ]);
+    if (auth()->user()->role === 'admin') {
 
         $order->update([
-            'status' => $request->status
+            'status' => $request->status,
         ]);
 
-        return redirect('/orders');
+        return redirect()->back();
     }
+
+    abort_if($order->user_id !== auth()->id(), 403);
+
+    $order->update([
+        'status' => $request->status,
+    ]);
+
+    return redirect('/orders');
+}
 
     public function destroy(Order $order)
     {

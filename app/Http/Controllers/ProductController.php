@@ -41,7 +41,7 @@ class ProductController extends Controller
             'is_active' => true
         ]);
 
-        return redirect('/products');
+        return redirect('/admin/products');
     }
 
     public function edit(Product $product)
@@ -61,7 +61,7 @@ class ProductController extends Controller
 
         $product->update($request->all());
 
-        return redirect('/products');
+        return redirect('/admin/products');
     }
 
     public function destroy(Product $product)

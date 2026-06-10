@@ -1,4 +1,5 @@
-import { router } from "@inertiajs/react";
+import { router, Link } from "@inertiajs/react";
+import Navbar from "@/Components/Navbar";
 
 export default function Index({ products, user }) {
 
@@ -22,25 +23,28 @@ export default function Index({ products, user }) {
     return (
         <div className="max-w-7xl mx-auto p-8">
 
+            {user.role === "client" && <Navbar />}
+
             <div className="flex justify-between items-center mb-8">
-                {user.role=="client" && (
+
+                {user.role === "client" && (
                     <h1 className="text-4xl font-bold text-purple-800">
-                    Tsports
+                        Tsports
                     </h1>
                 )}
 
-                {user.role=="admin" && (
+                {user.role === "admin" && (
                     <>
-                    <h1 className="text-4xl font-bold text-purple-800">
-                    Products
-                    </h1>
+                        <h1 className="text-4xl font-bold text-purple-800">
+                            Products
+                        </h1>
 
-                <a
-                    href="/products/create"
-                    className="bg-purple-700 hover:bg-purple-800 text-white px-5 py-3 rounded-lg shadow"
-                >
-                    + Add Product
-                </a>
+                        <Link
+                            href="/products/create"
+                            className="bg-purple-700 hover:bg-purple-800 text-white px-5 py-3 rounded-lg shadow"
+                        >
+                            + Add Product
+                        </Link>
                     </>
                 )}
 
@@ -75,31 +79,29 @@ export default function Index({ products, user }) {
 
                                 <p>
                                     <span className="font-bold">
-                                        Price :
+                                        Price:
                                     </span>{" "}
                                     {p.price} MAD
                                 </p>
 
-                                <p>
-                                    {p.size && (
-                                        <>
-                                            <span className="font-bold">
-                                                Size :
-                                            </span>{" "}
-                                            {p.size}
-                                        </>
-                                    )}
-                                </p>
+                                {p.size && (
+                                    <p>
+                                        <span className="font-bold">
+                                            Size:
+                                        </span>{" "}
+                                        {p.size}
+                                    </p>
+                                )}
 
                                 <p>
                                     <span className="font-bold">
-                                        Stock :
+                                        Stock:
                                     </span>{" "}
                                     {p.stock}
                                 </p>
 
                                 <p>
-                                    Status :
+                                    Status:
                                     <span
                                         className={
                                             p.is_active
@@ -115,7 +117,7 @@ export default function Index({ products, user }) {
 
                             <div className="flex flex-wrap gap-2 mt-6">
 
-                                {user.role=="client" && (
+                                {user.role === "client" && (
                                     <button
                                         onClick={() => addToCart(p.id)}
                                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
@@ -124,28 +126,30 @@ export default function Index({ products, user }) {
                                     </button>
                                 )}
 
-                                {user.role=="admin" && (
+                                {user.role === "admin" && (
                                     <>
-                                    <a
-                                    href={`/products/${p.id}/edit`}
-                                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
-                                >
-                                    Edit
-                                </a>
+                                        <Link
+                                            href={`/products/${p.id}/edit`}
+                                            className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
+                                        >
+                                            Edit
+                                        </Link>
 
-                                <button
-                                    onClick={() => toggleActive(p)}
-                                    className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded"
-                                >
-                                    {p.is_active ? "Deactivate" : "Activate"}
-                                </button>
+                                        <button
+                                            onClick={() => toggleActive(p)}
+                                            className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded"
+                                        >
+                                            {p.is_active
+                                                ? "Deactivate"
+                                                : "Activate"}
+                                        </button>
 
-                                <button
-                                    onClick={() => deleteProduct(p.id)}
-                                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-                                >
-                                    Delete
-                                </button>
+                                        <button
+                                            onClick={() => deleteProduct(p.id)}
+                                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+                                        >
+                                            Delete
+                                        </button>
                                     </>
                                 )}
 

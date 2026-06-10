@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -10,6 +9,16 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DashboardController;
 
 require __DIR__.'/auth.php';
+
+/*
+|--------------------------------------------------------------------------
+| Home
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/', function () {
+    return redirect('/login');
+});
 
 
 /*
@@ -39,10 +48,42 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
+    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    Route::resource('products', ProductController::class);
+    /*
+    |--------------------------------------------------------------------------
+    | Products Management
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/admin/products', [ProductController::class, 'index'])
+        ->name('admin.products');
+
+    Route::get('/products/create', [ProductController::class, 'create'])
+        ->name('products.create');
+
+    Route::post('/products', [ProductController::class, 'store'])
+        ->name('products.store');
+
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])
+        ->name('products.edit');
+    
+    
+        
+    Route::put('/products/{product}', [ProductController::class, 'update'])
+        ->name('products.update');
+
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])
+        ->name('products.destroy');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Orders Management
+    |--------------------------------------------------------------------------
+    */
 
     Route::get('/admin/orders', [OrderController::class, 'adminIndex'])
         ->name('admin.orders');
@@ -109,15 +150,4 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::get('/orders/{order}', [OrderController::class, 'show'])
         ->name('orders.show');
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| Home
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/', function () {
-    return redirect('/login');
 });
