@@ -32,6 +32,7 @@ export default function Index({ products, user }) {
                         Tsports
                     </h1>
                 )}
+                
 
                 {user.role === "admin" && (
                     <>

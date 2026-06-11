@@ -1,4 +1,4 @@
-import { useForm, Link } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 
 export default function Edit({ product }) {
     const { data, setData, put, processing, errors } = useForm({
@@ -18,19 +18,23 @@ export default function Edit({ product }) {
 
     return (
         <div className="min-h-screen bg-gray-100 py-10">
+
             <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
 
+                {/* Header */}
                 <div className="flex justify-between items-center mb-8">
+
+                    <button
+                        onClick={() => window.history.back()}
+                        className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg"
+                    >
+                        ← Back
+                    </button>
+
                     <h1 className="text-3xl font-bold text-purple-700">
                         Edit Product
                     </h1>
 
-                    <Link
-                        href="/admin/products"
-                        className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg"
-                    >
-                        Back
-                    </Link>
                 </div>
 
                 <form onSubmit={submit} className="space-y-5">
@@ -58,7 +62,7 @@ export default function Edit({ product }) {
                     {/* Price */}
                     <div>
                         <label className="font-semibold text-gray-700">
-                            Price
+                            Price (MAD)
                         </label>
 
                         <input
@@ -146,7 +150,7 @@ export default function Edit({ product }) {
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex gap-4 pt-4">
+                    <div className="flex gap-4 pt-6">
 
                         <button
                             type="submit"
@@ -156,18 +160,20 @@ export default function Edit({ product }) {
                             {processing ? "Updating..." : "Update Product"}
                         </button>
 
-                        <Link
-                            href="/admin/products"
+                        <button
+                            type="button"
+                            onClick={() => window.history.back()}
                             className="bg-gray-400 hover:bg-gray-500 text-white px-6 py-3 rounded-lg"
                         >
                             Cancel
-                        </Link>
+                        </button>
 
                     </div>
 
                 </form>
 
             </div>
+
         </div>
     );
 }
