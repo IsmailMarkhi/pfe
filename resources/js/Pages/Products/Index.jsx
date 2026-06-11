@@ -25,31 +25,44 @@ export default function Index({ products, user }) {
 
             {user.role === "client" && <Navbar />}
 
-            <div className="flex justify-between items-center mb-8">
-
-                {user.role === "client" && (
-                    <h1 className="text-4xl font-bold text-purple-800">
-                        Tsports
-                    </h1>
-                )}
+            
                 
 
-                {user.role === "admin" && (
-                    <>
-                        <h1 className="text-4xl font-bold text-purple-800">
-                            Products
-                        </h1>
+<div className="flex justify-between items-center mb-8">
 
-                        <Link
-                            href="/products/create"
-                            className="bg-purple-700 hover:bg-purple-800 text-white px-5 py-3 rounded-lg shadow"
-                        >
-                            + Add Product
-                        </Link>
-                    </>
-                )}
+ 
+
+    {user.role === "admin" && (
+        <>
+            <h1 className="text-4xl font-bold text-purple-800">
+                Products
+            </h1>
+
+            <div className="flex ml-12 gap-5">
+
+                <Link
+                    href="/dashboard"
+                    className="bg-gray-600 hover:bg-gray-700 text-white px-5 py-3 rounded-lg shadow"
+                >
+                    ← Back to Dashboard
+                </Link>
+
+                <Link
+                    href="/products/create"
+                    className="bg-purple-700 hover:bg-purple-800 text-white px-5 py-3 rounded-lg shadow"
+                >
+                    + Add Product
+                </Link>
 
             </div>
+        </>
+    )}
+
+</div>
+
+
+
+            
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -60,11 +73,13 @@ export default function Index({ products, user }) {
                         className="bg-white rounded-xl shadow-lg overflow-hidden border"
                     >
 
-                        <img
-                            src={p.image}
-                            alt={p.name}
-                            className="w-full h-60 object-cover"
-                        />
+                       <Link href={`/products/${p.id}`}>
+    <img
+        src={p.image}
+        alt={p.name}
+        className="w-full h-60 object-cover"
+    />
+</Link>
 
                         <div className="p-5">
 

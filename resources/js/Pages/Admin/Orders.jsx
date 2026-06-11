@@ -61,7 +61,11 @@ export default function Orders({ orders }) {
                                                 ? "text-green-600 font-bold"
                                                 : order.status === "shipped"
                                                 ? "text-blue-600 font-bold"
-                                                : "text-yellow-600 font-bold"
+                                                : order.status === "pending"
+                                                ? "text-yellow-600 font-bold"
+                                                : order.status === "cancelled" 
+                                                ?"text-red-600 font-bold"
+                                                : ""
                                         }
                                     >
                                         {order.status}
@@ -97,6 +101,14 @@ export default function Orders({ orders }) {
                                     className="bg-green-600 text-white px-4 py-2 rounded"
                                 >
                                     Delivered
+                                </button>
+                                <button
+                                    onClick={() =>
+                                        changeStatus(order, "cancelled")
+                                    }
+                                    className="bg-red-600 text-white px-4 py-2 rounded"
+                                >
+                                    Cancelled
                                 </button>
 
                             </div>

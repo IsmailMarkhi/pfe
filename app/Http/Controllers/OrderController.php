@@ -82,7 +82,7 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
 {
     $request->validate([
-        'status' => 'required|in:pending,shipped,delivered',
+        'status' => 'required|in:pending,shipped,delivered,cancelled',
     ]);
 
     if (auth()->user()->role === 'admin') {

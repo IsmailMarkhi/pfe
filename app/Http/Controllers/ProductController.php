@@ -15,6 +15,13 @@ class ProductController extends Controller
         ]);
     }
 
+    public function show(Product $product)
+    {
+        return Inertia::render('Products/Show', [
+            'product' => $product,'user' => auth()->user()
+        ]);
+    }
+
     public function create()
     {
         return Inertia::render('Products/Create');

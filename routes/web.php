@@ -71,7 +71,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('products.edit');
     
     
-        
+        Route::get('/products/{product}', [ProductController::class, 'show'])
+    ->name('products.show');
+    
     Route::put('/products/{product}', [ProductController::class, 'update'])
         ->name('products.update');
 
