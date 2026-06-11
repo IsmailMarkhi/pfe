@@ -4,6 +4,7 @@ import { Head, Link } from '@inertiajs/react';
 export default function Dashboard({
     productsCount,
     ordersCount,
+    revenue,
 }) {
     return (
         <AuthenticatedLayout
@@ -18,7 +19,7 @@ export default function Dashboard({
             <div className="py-10">
                 <div className="max-w-7xl mx-auto px-6">
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
                         <div className="bg-white p-6 rounded shadow">
                             <h3 className="text-lg font-bold mb-3">
@@ -36,6 +37,16 @@ export default function Dashboard({
                                 Manage Products
                             </Link>
                         </div>
+
+                        <div className="bg-white shadow rounded-xl p-6">
+    <h2 className="text-lg font-semibold text-gray-600">
+        Revenue
+    </h2>
+
+    <p className="text-3xl font-bold text-green-600 mt-3">
+        {revenue} DH
+    </p>
+</div>
 
                         <div className="bg-white p-6 rounded shadow">
                             <h3 className="text-lg font-bold mb-3">

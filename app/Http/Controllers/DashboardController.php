@@ -15,7 +15,7 @@ class DashboardController extends Controller
             'productsCount' => Product::count(),
             'ordersCount' => Order::count(),
             'usersCount' => User::count(),
-            'revenue' => Order::sum('total_price'),
+            'revenue' => Order::where('status', 'delivered')->sum('total_price'),
         ]);
     }
 }
